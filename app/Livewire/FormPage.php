@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Carbon\Carbon;
+
 class FormPage extends Component
 {
     public $currentPage = 1;
@@ -57,27 +58,28 @@ class FormPage extends Component
         $this->validateCurrentPage();
 
         // Save form data to database
-        if($this->maritalStatus=="Yes"){
-            $dob= Carbon::parse($this->dobYear.'-'.$this->dobMonth.'-'.$this->dobDay);
-            $mariage_date= Carbon::parse($this->dateOfMarriageYear.'-'.$this->dateOfMarriageMonth.'-'.$this->dateOfMarriageDay);
-    
-            $yearsDifference = $dob->diffInYears($mariage_date);
-            if($yearsDifference < 18){
-               $this->age_error= "You are not eligible to apply because your marriage occurred before your 18th birthday.";
-            }else{
+        if ($this->maritalStatus == "Yes") {
+            $dob = Carbon::parse($this->dobYear . '-' . $this->dobMonth . '-' . $this->dobDay);
+            $mariage_date = Carbon::parse($this->dateOfMarriageYear . '-' . $this->dateOfMarriageMonth . '-' . $this->dateOfMarriageDay);
+
+            $now = Carbon::now(); // Get the current date
+            $yearsDifference = $dob->diffInYears($now);
+            if ($yearsDifference < 18) {
+                $this->age_error = "You are not eligible to apply because your marriage occurred before your 18th birthday.";
+            } else {
                 // Reset form data after submission
                 // $this->resetForm();
                 $this->currentPage = 3;
             }
-        }else{
+        } else {
             // Reset form data after submission
             // $this->resetForm();
+            dd("fsf");
             $this->currentPage = 3;
         }
-    
-       
     }
-    public function changeVal() {
+    public function changeVal()
+    {
         // dd($this->maritalStatus);
     }
 
