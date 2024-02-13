@@ -74,7 +74,6 @@ class FormPage extends Component
         } else {
             // Reset form data after submission
             // $this->resetForm();
-            dd("fsf");
             $this->currentPage = 3;
         }
     }
